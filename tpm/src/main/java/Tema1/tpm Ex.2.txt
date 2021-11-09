@@ -1,0 +1,28 @@
+Ex.2
+a)Raspuns: Nu
+Deoarece exista cazul in care un procucator intra si pune primul element in stiva iar in timpul acesta, vin 2 consumatori si asteapata in structura while.
+Dupa ce producatorul a adus primul element in coada, cei 2 consumatori ies din structura while si intra unul cate unul in blocul lock()-unlock(). 
+Deoarece nu mai pot fi opriti, acestia incearca sa scoata din coada elemente ce nu au fost adaugate inca.
+
+Ex. PCC
+1. Producatorul vede ca stiva nu este plina
+2. Ia lock-ul
+3. Cei trei conumatori intra unul dupa altul(asteapta toti in while)
+4. Producatorul adauga un element in stiva
+5. Consumatorii ies din while si asteapta in coada sa intre in blocul de cod
+5. Producatorul elibereaza lock-ul
+6. Consumatorii nu mai sunt opriti si intra unul dupa altul si scot mai mult de un element din coada
+
+Pntru rezolvare am putea folosi lock condition pentru a sti cand coada este plina sau goala si sa facem acea structura wait in blocul lock()-unlock(), iar daca un 
+consumator ajunge in acel loop si nu are ce consuma, sa floseasca lock.await() pentr a isi ceda lock-ul si sa astepte un producator sa adauge un produs
+(care la randul lui sa foloseasca notify pentru a trezi consuatorul).
+
+b)
+Exemplu:
+Avem 3 thread-uri A,B,C. A intra si primeste Flag=True si label=1, nu asteapta si merge mai departe. Flag devine False dar la scurt imp apar B si C care intra
+simultan. Ambii primesc Flag=True si label-uri 2 si 3. Daca s-ar compara doar Flag-ul, ambele treaduri ar intra in acelasi timp dar pentru ca se compara tuplul de
+(Flag, Label), chiar daca 2 thread-uri intra in acelasi timp si ambele primesc Flag=True, label-ul este cel ce ii diferentiaza
+
+c)
+Varianta cu lock in interiorul structurii try este descurajata deorece daca se produce o eroare si lock-ul nu este asignat thread-ului curent, acesta incearca sa
+dea unlock, lucru ce duce la o exceptie.

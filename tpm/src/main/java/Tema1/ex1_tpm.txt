@@ -1,0 +1,17 @@
+Daca dorim sa verificam linearizabilitatea trebuie sa tinem cont de faptul ca daca un eveniment X de pe firul N se sfarseste inainte ca altul Y de pe firul M sa inceapa, atunci in secventa istoriei X terbuie sa fie inainte de Y.
+
+Asadar stim cu siguranta ca odata ce s-au finalizat evenimentele din Etapa 2, ultima valoare scrisa este 2. In etapa 3 nu se mai scrie niciodata valoarea 1, iar din moment ce A3 citeste 1, ajungem la contradictie.
+
+In concluzie secventa nu este linearizabila pentru ca nu se poate alcatui nici o secventa istorica valida.
+
+
+Totusi este consistent secvetiala. Exista nu mai mult de 3 exemple care dovedesc acest lucru:
+B1 A1 A2 A3 C1 B2 B3 C2
+B1 A1 A2 A3 C1 C2 B2 B3
+B1 A1 A2 A3 C1 B2 C2 B3
+
+Spre deosebire de linearizabilitate, la verificarea consistentei secventiale nu trebuie sa tinem cont de ordinea proceselor decat daca sunt pe acelasi fir
+(Xi < Xj pentru orice i<j, x din {A,B,C})
+
+
+ 
